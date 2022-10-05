@@ -10,13 +10,3 @@
 
 
 // add stop function
-
-
-// give user control over start func and params
-let user decide when to fire it
-
-
-// name property for each joro-spider object
-
-
-// do cdn

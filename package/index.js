@@ -2,6 +2,7 @@ const joro = {};
 joro.scrollWait = false;
 joro.scrollThrottle = 500;
 joro.presenceThrottle = 1000;
+joro.presenceTimeout = 6;
 joro.streamData = function(data) { };
 
 joro.createCommonData = function(type) {
@@ -16,7 +17,11 @@ joro.createCommonData = function(type) {
   return data;
 }
 
-joro.start = function(type) {
+joro.delayPresence = function delay(time) {
+  return new Promise(resolve => setTimeout(resolve, time));
+}
+
+joro.start = async function(type) {
   let joroUserId = localStorage.getItem('joroUserId');
 
   if (!joroUserId) {
@@ -46,12 +51,11 @@ joro.start = function(type) {
     joro.streamData(data);
   });
 
-  setInterval(function () {
+  for (let i = 0; i < joro.presenceTimeout; i += 1) {
     const data = joro.createCommonData('presence');
     joro.streamData(data);
-  }, joro.presenceThrottle);
+    await joro.delayPresence(joro.presenceThrottle);
+  }
 };
-
-joro.start();
 
 module.exports = joro

@@ -114,11 +114,17 @@
 <button type="button" onclick="console.log('Button clicked')">Click Me!</button>
 
 <script>
-
+const config = {
+  spiderName: 'my spider',
+  scrollThrottle: 500,
+  presenceThrottle: 1000,
+  presenceTimeout: 60,
+}
 
 joro.streamData = (data) => {
   console.log('data', data)
 }
+joro.start(config);
 </script>
 
 </body>

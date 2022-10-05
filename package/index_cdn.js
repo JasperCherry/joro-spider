@@ -1,7 +1,9 @@
 const joro = {};
-joro.scrollWait = false;
+joro.spiderName = '';
 joro.scrollThrottle = 500;
 joro.presenceThrottle = 1000;
+joro.presenceTimeout = 60;
+joro.scrollWait = false;
 joro.streamData = function(data) { };
 
 joro.createCommonData = function(type) {
@@ -12,18 +14,26 @@ joro.createCommonData = function(type) {
   data.windowWidth = window.innerWidth;
   data.windowHeight = window.innerHeight;
   data.userId = joro.userId;
+  data.spiderName = joro.spiderName;
 
   return data;
 }
 
-joro.start = function(type) {
-  let joroUserId = localStorage.getItem('joroUserId');
+joro.delayPresence = function delay(time) {
+  return new Promise(resolve => setTimeout(resolve, time));
+}
 
+joro.start = async function(config) {
+  joro.spiderName = config?.spiderName || joro.spiderName;
+  joro.scrollThrottle = config?.scrollThrottle || joro.scrollThrottle;
+  joro.presenceThrottle = config?.presenceThrottle || joro.presenceThrottle;
+  joro.presenceTimeout = config?.presenceTimeout || joro.presenceTimeout;
+
+  let joroUserId = localStorage.getItem('joroUserId');
   if (!joroUserId) {
     joroUserId = crypto.randomUUID();
     localStorage.setItem('joroUserId', joroUserId);
   }
-
   joro.userId = joroUserId;
 
   document.addEventListener('scroll', function(event){
@@ -46,10 +56,9 @@ joro.start = function(type) {
     joro.streamData(data);
   });
 
-  setInterval(function () {
+  for (let i = 0; i < joro.presenceTimeout; i += 1) {
     const data = joro.createCommonData('presence');
     joro.streamData(data);
-  }, joro.presenceThrottle);
+    await joro.delayPresence(joro.presenceThrottle);
+  }
 };
-
-joro.start();
