@@ -9,4 +9,4 @@
 // make joro spider graphic
 
 
-// add stop function
+// make joro cloned spider
