@@ -1,6 +1,7 @@
 const joro = {};
 joro.scrollWait = false;
 joro.scrollThrottle = 500;
+joro.presenceThrottle = 1000;
 joro.streamData = function(data) { };
 
 function createCommonData(type) {
@@ -45,6 +46,10 @@ function main() {
     joro.streamData(data);
   });
 
+  setInterval(function () {
+    const data = createCommonData('presence');
+    joro.streamData(data);
+  }, joro.presenceThrottle);
 };
 
 main();
