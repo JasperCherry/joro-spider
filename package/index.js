@@ -53,3 +53,5 @@ joro.start = function(type) {
 };
 
 joro.start();
+
+module.exports = joro

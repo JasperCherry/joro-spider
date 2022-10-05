@@ -2,3 +2,14 @@
 
 
 // do npm and cdn
+do readme manual
+
+
+// make joro spider graphic
+
+
+// add stop function
+
+
+// give user control over start func and params
+let user decide when to fire it
