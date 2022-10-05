@@ -1,8 +1,9 @@
 
 
 
-// do npm and cdn
-do readme manual
+
+// do readme manual for npm
+
 
 
 // make joro spider graphic
@@ -13,3 +14,9 @@ do readme manual
 
 // give user control over start func and params
 let user decide when to fire it
+
+
+// name property for each joro-spider object
+
+
+// do cdn
