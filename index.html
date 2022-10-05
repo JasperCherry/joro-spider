@@ -21,7 +21,7 @@
 <br /><br />
 <p>The content of the title element is displayed in the browser tab, in favorites and in search-engine results.</p>
 <br /><br />
-<button type="button" onclick="console.log('Button clicked')">Click Me!</button>
+<button type="button" onclick="joro.start()">Start spider!</button>
 
 <br /><br /><br /><br />
 
@@ -114,17 +114,22 @@
 <button type="button" onclick="console.log('Button clicked')">Click Me!</button>
 
 <script>
+
+
 const config = {
   spiderName: 'my spider',
   scrollThrottle: 500,
   presenceThrottle: 1000,
-  presenceTimeout: 60,
+  presenceTimeout: 6,
 }
 
+const joro = createJoro(config);
 joro.streamData = (data) => {
   console.log('data', data)
 }
-joro.start(config);
+joro.start();
+
+
 </script>
 
 </body>
