@@ -5,3 +5,7 @@
 
 // figure out different CDN
 more stable
+
+
+// change license displayed on npm to mit
+see if its possible nad how
