@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="package/index_cdn.js"></script>
+  <!-- <script src="package/index_cdn.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/joro-spider@1.0.6/index_cdn.min.js"></script>
 </head>
 <body>
 
@@ -127,7 +128,7 @@ const config = {
   spiderName: 'my spider 1',
   scrollThrottle: 500,
   presenceThrottle: 1000,
-  presenceTimeout: 60,
+  presencePings: 60,
 }
 
 const joro = createJoro(config);
@@ -139,7 +140,7 @@ const config2 = {
   spiderName: 'my spider 2',
   scrollThrottle: 500,
   presenceThrottle: 1000,
-  presenceTimeout: 60,
+  presencePings: 60,
 }
 
 const joro2 = createJoro(config2);

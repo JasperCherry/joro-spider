@@ -3,7 +3,7 @@ function createJoro(config) {
   joro.spiderName = config?.spiderName || '';
   joro.scrollThrottle = config?.scrollThrottle || 500;
   joro.presenceThrottle = config?.presenceThrottle || 1000;
-  joro.presenceTimeout = config?.presenceTimeout || 60;
+  joro.presencePings = config?.presencePings || 60;
   joro.scrollWait = false;
   joro.spiderRunning = false;
   joro.streamData = function(data) { };
@@ -21,7 +21,7 @@ function createJoro(config) {
     return data;
   }
 
-  joro.delayPresence = function delay(time) {
+  joro.delayPresencePings = function delay(time) {
     return new Promise(resolve => setTimeout(resolve, time));
   }
 
@@ -62,12 +62,12 @@ function createJoro(config) {
     document.addEventListener('click', joro.handleClickEvent);
     document.addEventListener('scroll', joro.handleScrollEvent);
 
-    for (let i = 0; i < joro.presenceTimeout; i += 1) {
+    for (let i = 0; i < joro.presencePings; i += 1) {
       if (!joro.spiderRunning) break;
 
       const data = joro.createCommonData('presence');
       joro.streamData(data);
-      await joro.delayPresence(joro.presenceThrottle);
+      await joro.delayPresencePings(joro.presenceThrottle);
     }
   };
 
