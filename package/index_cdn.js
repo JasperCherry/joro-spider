@@ -5,19 +5,18 @@ function createJoro(config) {
   joro.presenceThrottle = config?.presenceThrottle || 1000;
   joro.presenceTimeout = config?.presenceTimeout || 60;
   joro.scrollWait = false;
-  joro.startSpider = false;
-  joro.stopSpider = false;
+  joro.spiderRunning = false;
   joro.streamData = function(data) { };
 
   joro.createCommonData = function(type) {
     const data = {};
+    data.spiderName = joro.spiderName;
     data.type = type;
     data.timestamp = Date.now();
     data.url = window.location.href;
     data.windowWidth = window.innerWidth;
     data.windowHeight = window.innerHeight;
     data.userId = joro.userId;
-    data.spiderName = joro.spiderName;
 
     return data;
   }
@@ -26,9 +25,32 @@ function createJoro(config) {
     return new Promise(resolve => setTimeout(resolve, time));
   }
 
+  joro.handleClickEvent = function(event) {
+    const data = joro.createCommonData('click');
+    data.mouseX = event.pageX;
+    data.mouseY = event.pageY;
+    joro.streamData(data);
+  }
+
+  joro.handleScrollEvent = function(event) {
+    if (!joro.scrollWait) {
+      joro.scrollWait = true;
+      setTimeout(function () {
+          joro.scrollWait = false;
+          const data = joro.createCommonData('scroll');
+          data.scrollX = window.scrollX;
+          data.scrollY = window.scrollY;
+          joro.streamData(data);
+      }, joro.scrollThrottle);
+    }
+  }
+
   joro.start = async function() {
-    if (joro.startSpider) return;
-    joro.startSpider = true;
+    if (joro.spiderRunning) {
+      return;
+    } else {
+      joro.spiderRunning = true;
+    }
 
     let joroUserId = localStorage.getItem('joroUserId');
     if (!joroUserId) {
@@ -37,32 +59,11 @@ function createJoro(config) {
     }
     joro.userId = joroUserId;
 
-    document.addEventListener('scroll', function(event){
-      if (joro.stopSpider) return;
-
-      if (!joro.scrollWait) {
-        joro.scrollWait = true;
-        setTimeout(function () {
-            joro.scrollWait = false;
-            const data = joro.createCommonData('scroll');
-            data.scrollX = window.scrollX;
-            data.scrollY = window.scrollY;
-            joro.streamData(data);
-        }, joro.scrollThrottle);
-      }
-    });
-
-    document.addEventListener('click', function(event){
-      if (joro.stopSpider) return;
-
-      const data = joro.createCommonData('click');
-      data.mouseX = event.pageX;
-      data.mouseY = event.pageY;
-      joro.streamData(data);
-    });
+    document.addEventListener('click', joro.handleClickEvent);
+    document.addEventListener('scroll', joro.handleScrollEvent);
 
     for (let i = 0; i < joro.presenceTimeout; i += 1) {
-      if (joro.stopSpider) return;
+      if (!joro.spiderRunning) break;
 
       const data = joro.createCommonData('presence');
       joro.streamData(data);
@@ -71,7 +72,9 @@ function createJoro(config) {
   };
 
   joro.stop = function() {
-    joro.stopSpider = true;
+    joro.spiderRunning = false;
+    document.removeEventListener('click', joro.handleClickEvent);
+    document.removeEventListener('scroll', joro.handleScrollEvent);
   }
 
   return joro;

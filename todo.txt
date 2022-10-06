@@ -9,5 +9,4 @@
 // make joro spider graphic
 
 
-
-// make spider stop and start
+// remove event listeners
