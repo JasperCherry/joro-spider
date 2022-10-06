@@ -1,0 +1,7 @@
+
+
+// add graphic to readme.md
+
+
+// figure out different CDN
+more stable
