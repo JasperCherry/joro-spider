@@ -7,7 +7,7 @@ joro-spider is a javascript tool for tracking user behaviour on the website
 Use the cdn link
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/joro-spider@1.0.6/index_cdn.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/joro-spider@1.0.7/index_cdn.min.js"></script>
 ```
 
 or use the npm
@@ -31,7 +31,7 @@ joro.start();
 
 // logs out data stream
 joro.streamData = (data) => {
-  console.log('data', data)
+  console.log({ data });
 };
 
 // stops spider activity
