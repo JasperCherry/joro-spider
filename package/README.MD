@@ -1,5 +1,7 @@
 # joro-spider
 
+![alt text](https://raw.githubusercontent.com/JasperCherry/public-content/main/joro.png)
+
 joro-spider is a javascript tool for tracking user behaviour on the website
 
 ## Installation
@@ -7,7 +9,7 @@ joro-spider is a javascript tool for tracking user behaviour on the website
 Use the cdn link
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/joro-spider@1.0.7/index_cdn.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/joro-spider@1.0.8/index_cdn.min.js"></script>
 ```
 
 or use the npm
