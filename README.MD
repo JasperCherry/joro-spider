@@ -10,7 +10,7 @@ It tracks 3 types of user interactions: click, scroll and presence. Clicks and s
 Use the cdn link
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/joro-spider@1.1.0/index_cdn.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/joro-spider@1.1.1/index_cdn.min.js"></script>
 ```
 
 or use the npm
@@ -26,18 +26,18 @@ const createJoro = require('joro-spider');
 ## Usage
 
 ```javascript
-// creates spider
+// create spider
 const joro = createJoro();
 
-// logs out data stream
+// log out data stream
 joro.streamData = (data) => {
   console.log({ data });
 };
 
-// starts spider activity
+// start spider activity
 joro.start();
 
-// stops spider activity
+// stop spider activity
 joro.stop();
 
 // check if spider is actively streaming data
@@ -48,13 +48,13 @@ Custom configuration
 
 ```javascript
 const config = {
-  // pickup name
+  // assign name
   spiderName: 'my spider',
   // throttle scroll data (default 500ms)
   scrollThrottle: 500,
   // throttle presence data (default 1000ms)
   presenceThrottle: 1000,
-  // user presence measurements between presenceThrottle time units (default 60 pings)
+  // user presence measurements limit using presenceThrottle time units (default 60 pings)
   presencePings: 60,
 };
 
