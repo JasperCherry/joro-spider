@@ -10,7 +10,7 @@ It tracks 3 types of user interactions: click, scroll and presence. Clicks and s
 Use the cdn link
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/joro-spider@1.0.9/index_cdn.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/joro-spider@1.1.0/index_cdn.min.js"></script>
 ```
 
 or use the npm
