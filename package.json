@@ -1,6 +1,6 @@
 {
   "name": "joro-spider",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "web user tracking tool",
   "main": "index.js",
   "scripts": {

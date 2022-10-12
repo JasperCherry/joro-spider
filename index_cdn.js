@@ -10,7 +10,7 @@ function createJoro(config) {
   joro.presenceThrottle = config?.presenceThrottle || 1000;
   joro.presencePings = config?.presencePings || 60;
   joro.scrollWait = false;
-  joro.spiderRunning = false;
+  joro.isActive = false;
   joro.streamData = function(data) { };
 
   joro.createCommonData = function(type) {
@@ -51,10 +51,10 @@ function createJoro(config) {
   }
 
   joro.start = async function() {
-    if (joro.spiderRunning) {
+    if (joro.isActive) {
       return;
     } else {
-      joro.spiderRunning = true;
+      joro.isActive = true;
     }
 
     let joroUserId = localStorage.getItem('joroUserId');
@@ -68,7 +68,7 @@ function createJoro(config) {
     document.addEventListener('scroll', joro.handleScrollEvent);
 
     for (let i = 0; i < joro.presencePings; i += 1) {
-      if (!joro.spiderRunning) break;
+      if (!joro.isActive) break;
 
       const data = joro.createCommonData('presence');
       joro.streamData(data);
@@ -77,7 +77,7 @@ function createJoro(config) {
   };
 
   joro.stop = function() {
-    joro.spiderRunning = false;
+    joro.isActive = false;
     document.removeEventListener('click', joro.handleClickEvent);
     document.removeEventListener('scroll', joro.handleScrollEvent);
   }

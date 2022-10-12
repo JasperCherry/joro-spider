@@ -1,13 +1,16 @@
 # joro-spider
 
-joro-spider is a javascript tool for tracking user behaviour on the website
+![alt text](https://raw.githubusercontent.com/JasperCherry/public-content/main/joro.png)
+
+Joro-spider is a javascript tool for tracking user behaviour while using website.
+It tracks 3 types of user interactions: click, scroll and presence. Clicks and scrolls are based on event listeners. Presence data generator has a countdown limit, after which it will stop delivering information.
 
 ## Installation
 
 Use the cdn link
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/joro-spider@1.0.6/index_cdn.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/joro-spider@1.0.9/index_cdn.min.js"></script>
 ```
 
 or use the npm
@@ -26,16 +29,19 @@ const createJoro = require('joro-spider');
 // creates spider
 const joro = createJoro();
 
+// logs out data stream
+joro.streamData = (data) => {
+  console.log({ data });
+};
+
 // starts spider activity
 joro.start();
 
-// logs out data stream
-joro.streamData = (data) => {
-  console.log('data', data)
-};
-
 // stops spider activity
 joro.stop();
+
+// check if spider is actively streaming data
+console.log(joro.isActive);
 ```
 
 Custom configuration
