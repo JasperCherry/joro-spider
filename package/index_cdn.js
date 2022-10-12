@@ -1,4 +1,9 @@
 function createJoro(config) {
+  if (typeof window === 'undefined') {
+    console.log('Browser not detected - joro will not be created');
+    return;
+  }
+
   const joro = {};
   joro.spiderName = config?.spiderName || '';
   joro.scrollThrottle = config?.scrollThrottle || 500;
